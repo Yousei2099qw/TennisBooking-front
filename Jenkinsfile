@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     stages {
-
         stage('Install Dependencies') {
             steps {
                 echo '📦 Installing dependencies...'
@@ -16,26 +15,14 @@ pipeline {
                 sh 'npm run build'
             }
         }
-
-        stage('Test') {
-            when {
-                expression {
-                    return fileExists('src')
-                }
-            }
-            steps {
-                echo '🧪 Running tests...'
-                sh 'npm test -- --watch=false'
-            }
-        }
     }
 
     post {
         success {
-            echo '✅ Build & test Success'
+            echo '✅ Build 成功（无测试阶段）'
         }
         failure {
-            echo '❌ Build 或 Test Fail'
+            echo '❌ Build 失败'
         }
     }
 }

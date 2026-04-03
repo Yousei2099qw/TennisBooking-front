@@ -1,0 +1,116 @@
+1.React 组件开发顺序：
+✅ 从「最小、最笨、最底层」开始
+✅ 最后才拼装大的
+
+
+2.
+JavaScript：浏览器真正运行的语言
+TypeScript：给 JavaScript 加了一层「说明书 / 规则」
+
+TypeScript：我来确保你写的 React 代码“不会乱传、不乱用”
+React：我只负责根据 props / state 渲染 UI
+JavaScript：我是真正被执行的东西
+
+
+3.模板字符串
+className={`slot ${available ? 'available' : 'disabled'}`}
+
+
+4.typeScript 中两个核心但容易迷糊的概念：type vs interface。
+✅ 在定义 React 组件的 props 时，type 和 interface 都可以用
+✅ 功能上几乎一样
+✅ 选哪个，主要是“习惯和场景”，不是对错
+
+5.useState
+当你调用 useState 时，你是在告诉 React 你想让这个组件记住一些东西：
+useState Hook 提供了这两个功能：
+State 变量 用于保存渲染间的数据。
+State setter 函数 更新变量并触发 React 再次渲染组件。
+const [index, setIndex] = useState(0);
+
+useState 的唯一参数是 state 变量的初始值。
+ const [selectedTime, setSelectedTime] = useState<string | null>(null);
+这行代码的意思是：
+
+在这个组件里创建了一个“状态”：
+用来记录“当前选中的时间”，
+初始时是 null（还没选）。
+
+我们先把 <string | null> 去掉，变成最基础版本：const [selectedTime, setSelectedTime] = useState(null);  
+
+
+
+你可以把它读成一句完整的话：
+从 React 那里拿一个状态
+状态名：selectedTime
+修改状态的函数：setSelectedTime
+初始值：null
+
+这里的 <string | null> 是什么？
+这是 TypeScript 泛型，你现在可以这样理解：
+
+我在“提前告诉 TypeScript”：
+这个 state 里，只允许放这两种值：
+
+string
+null
+
+6.useState的state setter 函数
+有点不理解，useState的setSelectedTime方法不需要去定义和实装嘛，是react已经为我生成了嘛
+是的，setSelectedTime 不需要你自己定义或实现
+✅ 它是 useState 这个 React API 帮你创建并返回的函数
+
+
+
+7.「props.onConfirm 这样用会不会显得怪，落伍？」
+
+✅ 不会
+这是最经典、最标准的 React 模式：
+子组件：只负责触发   父组件：决定下一步
+
+8.props.name,还是court.name?
+
+export default  function CourtCard(props:  court ) {
+  return (
+    <div className="court-card">
+      <CourtHeader name={props.name} type={props.type} />
+      <TimeSlotGrid slots={props.timeSlots} onConfirm={() => {}} />
+    </div>
+  );
+}为什么是props.name，而不是court.name呢
+
+
+props.name 而不是 court.name 的原因是：
+✅ props 是这个函数真正接收到的参数变量名
+✅ court 只是你在 类型写法里用过的名字（或者你以为的类型名）
+❌ court 在这个函数作用域里并不是一个变量
+
+
+9.
+type court = {
+  name: string;
+  type?: string;
+  timeSlots: {
+    time: string;
+    available: boolean;
+  }[];
+};
+✔ 结论 1：它不会生成任何变量、对象或数组
+✅ 不会生成 court
+✅ 不会生成 { name, type, timeSlots }
+✅ 不会在运行时占任何内存
+👉 它只存在于 TypeScript 的“类型检查阶段”
+
+结论 2：它的唯一目的就是——校验其他东西像不像它
+✅ 要求 props 的结构，符合 court 的“形状规则”
+
+结论 3：编译成 JavaScript 后，court 会被完全删除
+function CourtCard(props)
+VS Code 报错信息
+'court' only refers to a type, but is being used as a value here.
+
+10.
+✅ 为什么大家都建议类型名首字母大写（强烈建议你现在就改）
+现在写的type court = { ... }
+避免你把“类型名”和“变量名”混在一起
+应该写为type Court = { ... }

@@ -1,0 +1,32 @@
+
+synchronized解决一个时间段的场地被多人预约的问题
+# TENNIESBOOKING
+TENNIESBOOKING SYSTEM
+
+个人propile用shields.io获取素材
+
+不需要这么复杂的功能
+亮点1，SSE server send events，实时更新球场预约情况
+亮点2，pre-hold，可以减少并发，提高用户体验，不然可能会重复预约失败，且对服务器有负担，直接提前解决问题  
+亮点3,读写分离，
+
+
+
+
+
+# 通知功能（Notification System）
+郵件或App提醒（Email / In-App Notification）
+預約提醒、取消通知（Booking Reminder / Cancellation Alert）
+
+
+
+
+
+#1顯示縂場地數，被預定場地數，已經可利用場地數。
+
+#2抽選功能
+
+
+#3用戶組隊功能
+
+#

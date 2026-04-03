@@ -1,0 +1,7 @@
+<CourtCard>
+  ├ <CourtHeader />
+  └ <TimeSlotGrid>
+        ├ <TimeSlot />
+        ├ <TimeSlot />
+        ├ <TimeSlot />
+        └ ...

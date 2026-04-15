@@ -1,4 +1,4 @@
-type ConfirmModalProps = {
+type AlertModalProps = {
   show: boolean;
   title: string;
   message: string;
@@ -8,15 +8,14 @@ type ConfirmModalProps = {
   onCancel: () => void;
 };
 
-export default function ConfirmModal(props: ConfirmModalProps) {
-  const { show, title, message, confirmText, cancelText, onConfirm, onCancel } =
-    props;
+export default function AlertModal(props: AlertModalProps) {
+  const { show, title, message, confirmText, onConfirm, onCancel } = props;
 
   if (!show) return null;
 
   return (
     <>
-      <div className="modal show d-block " tabIndex={-1}>
+      <div className="modal show d-block" tabIndex={-1}>
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header bg-primary text-white">
@@ -29,9 +28,6 @@ export default function ConfirmModal(props: ConfirmModalProps) {
             </div>
 
             <div className="modal-footer">
-              <button className="btn btn-secondary" onClick={onCancel}>
-                {cancelText}
-              </button>
               <button className="btn btn-primary" onClick={onConfirm}>
                 {confirmText}
               </button>
